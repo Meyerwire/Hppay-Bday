@@ -125,19 +125,56 @@
         <p>Alles Gute zum Geburtstag, Chef am Rost!</p>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-    <script>
-        function revealGift() {
-            document.getElementById('gift-box').style.display = 'none';
-            document.getElementById('grill-stage').style.display = 'block';
-            
-            confetti({
-                particleCount: 150,
-                spread: 70,
-                origin: { y: 0.6 },
-                colors: ['#ff4500', '#ffffff', '#ff8c00']
-            });
+ <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<script>
+    function playSizzle() {
+        // Wir erzeugen ein synthetisches Zischen (White Noise), 
+        // damit wir keine extra Sound-Datei brauchen.
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const bufferSize = audioCtx.sampleRate * 2; // 2 Sekunden
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
+
+        for (let i = 0; i < bufferSize; i++) {
+            data[i] = Math.random() * 2 - 1; // Rauschen erzeugen
         }
-    </script>
+
+        const noise = audioCtx.createBufferSource();
+        noise.buffer = buffer;
+
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = 'highpass';
+        filter.frequency.value = 1000; // Macht es "zischiger"
+
+        const gainNode = audioCtx.createGain();
+        gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 1.5);
+
+        noise.connect(filter);
+        filter.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        noise.start();
+    }
+
+    function revealGift() {
+        // Sound abspielen
+        playSizzle();
+
+        // Geschenk verstecken
+        document.getElementById('gift-box').style.display = 'none';
+        
+        // Grill zeigen
+        document.getElementById('grill-stage').style.display = 'block';
+        
+        // Konfetti-Explosion
+        confetti({
+            particleCount: 150,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ['#ff4500', '#ffffff', '#ff8c00']
+        });
+    }
+</script>
 </body>
 </html>
