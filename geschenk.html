@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dein Geschenk!</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f0f2f5;
+            overflow: hidden;
+            font-family: sans-serif;
+        }
+
+        /* Das Geschenk-Paket */
+        .gift-container {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s;
+            z-index: 10;
+        }
+        .gift-container:hover { transform: scale(1.05); }
+        .gift-emoji { font-size: 150px; }
+
+        /* Der Grill (standardmäßig versteckt) */
+        .grill-container {
+            display: none;
+            text-align: center;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .grill-emoji { font-size: 120px; position: relative; }
+
+        /* Rauch/Flammen Animation */
+        .smoke {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 40px;
+            animation: rise 2s infinite;
+            opacity: 0;
+        }
+
+        @keyframes rise {
+            0% { transform: translate(-50%, 0) scale(0.5); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translate(-50%, -100px) scale(1.5); opacity: 0; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        h2 { color: #333; margin-top: 20px; }
+        .confetti-canvas { position: absolute; top: 0; left: 0; pointer-events: none; }
+    </style>
+</head>
+<body>
+
+    <div class="gift-container" id="gift" onclick="openGift()">
+        <div class="gift-emoji">🎁</div>
+        <p style="text-align:center; color: #888;">Klick mich an!</p>
+    </div>
+
+    <div class="grill-container" id="grill">
+        <div class="grill-emoji">
+            <div class="smoke">💨</div>
+            <div class="smoke" style="animation-delay: 0.7s">🔥</div>
+            <div class="smoke" style="animation-delay: 1.4s">💨</div>
+            <span role="img" aria-label="Grill">Wait... ♨️</span><br>
+            <span style="font-size: 150px">Legacy-Grill 🥩</span>
+        </div>
+        <h2>Gutschein: Ein epischer Grillabend!</h2>
+        <p>Alles Gute zum Geburtstag, Papa!</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script>
+        function openGift() {
+            // Geschenk verstecken
+            document.getElementById('gift').style.display = 'none';
+            // Grill zeigen
+            document.getElementById('grill').style.display = 'block';
+            
+            // Konfetti-Explosion
+            confetti({
+                particleCount: 200,
+                spread: 100,
+                origin: { y: 0.6 }
+            });
+        }
+    </script>
+</body>
+</html>
