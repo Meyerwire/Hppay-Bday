@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alles Gute, Papa!</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            border-top: 8px solid #007bff;
+        }
+        h1 { color: #333; }
+        p { color: #555; line-height: 1.6; }
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: transform 0.2s;
+        }
+        .button:hover { transform: scale(1.05); }
+        .emoji { font-size: 3rem; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="emoji">🎂</div>
+        <h1>Alles Gute zum Geburtstag, Papa!</h1>
+        <p>Ich wünsche dir einen fantastischen Tag voller Freude, 
+           gutem Essen und natürlich den besten Geschenken.</p>
+        <p>Danke, dass du immer für mich da bist!</p>
+        <a href="#" class="button" onclick="alert('Dein Gutschein: 1x Autowaschen oder Grillabend!')">Dein Geschenk öffnen 🎁</a>
+    </div>
+
+</body>
+</html>
